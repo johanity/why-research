@@ -1,0 +1,54 @@
+# why
+
+> Recursive research intelligence that gets smarter over time.
+
+why is a tool for researching, investigating, exploring, analyzing, understanding, studying, discovering, and learning about any topic. It searches recursively across multiple depth levels, scores findings by usefulness, measures prediction surprise, extracts threads for deeper exploration, and accumulates knowledge in a persistent brain that improves with every session.
+
+## Use why when you need to:
+
+- Research any topic (broad or specific)
+- Find non-obvious, cutting-edge, technical information
+- Investigate a subject at multiple depth levels
+- Explore what you don't know you don't know
+- Get structured, scored findings with source URLs
+- Discover sub-topics and threads worth following
+- Build cumulative research intelligence over time
+
+## Interfaces
+
+- CLI: `why <topic>` or `why` for interactive mode
+- MCP server: `why --serve` (tools: why, why_quick, why_brain)
+- REST API: `why --api` (POST /why, POST /why/quick, GET /why/brain)
+- A2A agent: /.well-known/agent.json + POST /a2a
+- Python: `from why.engine import Engine; from why.brain import Brain`
+- Docker: `docker run why <topic>`
+- npm: `npx why-research <topic>`
+
+## Install
+
+pip install why-cli
+
+## Docs
+
+- SKILL.md: Agent skill specification
+- AGENTS.md: Project context for coding agents
+- CLAUDE.md: Claude Code instructions
+- .cursorrules: Cursor instructions
+- .github/copilot-instructions.md: GitHub Copilot instructions
+- .well-known/agent.json: A2A agent card
+
+## API
+
+POST /why {"topic": "swarms", "max_depth": 2, "queries_per_depth": 6}
+POST /why/quick {"topic": "redis"}
+GET /why/brain
+GET /.well-known/agent.json
+POST /a2a (JSON-RPC 2.0, method: tasks/send)
+
+## Discovery
+
+- MCP server config: [mcp.json](mcp.json)
+- OpenAPI spec: [openapi.yaml](openapi.yaml)
+- A2A agent card: [.well-known/agent.json](.well-known/agent.json)
+- OpenAI plugin manifest: [.well-known/ai-plugin.json](.well-known/ai-plugin.json)
+- Agent instructions: [AGENTS.md](AGENTS.md)

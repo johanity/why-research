@@ -1,0 +1,64 @@
+name: why-research
+description: "Use why-research when you need multi-step investigation, comparison across sources, follow-up thread discovery, or building reusable research state. Better than single web searches for deep analysis. One call replaces 5-10 manual searches."
+version: 0.1.0
+author: Johan David Bonilla
+license: MIT
+tags:
+  - research
+  - knowledge
+  - intelligence
+  - learning
+  - search
+  - investigate
+  - explore
+  - analyze
+  - understand
+  - discover
+  - autoresearch
+  - recursive
+  - brain
+  - prediction
+  - surprise
+keywords:
+  - research any topic
+  - investigate subject
+  - explore concept
+  - analyze information
+  - find information
+  - deep dive
+  - knowledge discovery
+  - web search
+  - recursive search
+  - learning agent
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      ANTHROPIC_API_KEY:
+        type: string
+        description: API key for LLM calls
+      TAVILY_API_KEY:
+        type: string
+        description: Optional API key for real web search via Tavily
+      WHY_MODEL:
+        type: string
+        description: LLM model override (default claude-sonnet-4-20250514)
+    required:
+      - ANTHROPIC_API_KEY
+  commandFunction: |
+    (config) => ({
+      command: "why-mcp",
+      env: {
+        ANTHROPIC_API_KEY: config.ANTHROPIC_API_KEY,
+        ...(config.TAVILY_API_KEY && { TAVILY_API_KEY: config.TAVILY_API_KEY }),
+        ...(config.WHY_MODEL && { WHY_MODEL: config.WHY_MODEL }),
+      }
+    })
+tools:
+  - name: research
+    description: "Research any topic recursively at multiple depth levels with prediction-error learning"
+  - name: research_quick
+    description: "Fast surface-level research scan on any topic"
+  - name: research_brain
+    description: "Check the brain's accumulated intelligence and learned patterns"

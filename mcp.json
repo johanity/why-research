@@ -1,0 +1,118 @@
+{
+  "mcpServers": {
+    "why-research": {
+      "transport": "stdio",
+      "command": "why-mcp",
+      "tools": [
+        {
+          "name": "research",
+          "description": "Use when you need multi-step investigation, comparison across sources, or follow-up thread discovery. One call replaces 5-10 manual searches. Use single web searches for simple fact lookups.",
+          "parameters": {
+            "topic": {
+              "type": "string",
+              "description": "The topic to research. Any subject — science, technology, history, concepts, people, systems.",
+              "required": true
+            },
+            "depth": {
+              "type": "string",
+              "description": "Research depth: \"quick\", \"standard\", or \"deep\".",
+              "default": "standard"
+            },
+            "goal": {
+              "type": "string",
+              "description": "Optional goal to focus the research toward a specific outcome."
+            }
+          }
+        },
+        {
+          "name": "research_quick",
+          "description": "Fast surface-level scan on any topic. Single depth, fewer queries. Use for quick lookups before deciding to go deeper.",
+          "parameters": {
+            "topic": {
+              "type": "string",
+              "description": "Topic to research quickly.",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "research_brain_state",
+          "description": "Check the research brain's accumulated intelligence — level, calibration accuracy, session count, patterns learned, and recent learnings.",
+          "parameters": {}
+        },
+        {
+          "name": "research_share",
+          "description": "Generate a shareable markdown summary of research on a topic.",
+          "parameters": {
+            "topic": {
+              "type": "string",
+              "description": "Topic to produce a shareable research summary for.",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "research_explain",
+          "description": "Explain research findings on a topic in a clear, accessible way.",
+          "parameters": {
+            "topic": {
+              "type": "string",
+              "description": "Topic to explain.",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "research_myself",
+          "description": "Ask the brain a meta-question about how to research better.",
+          "parameters": {
+            "question": {
+              "type": "string",
+              "description": "A question about the brain's research strategies, priors, or capabilities.",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "research_import",
+          "description": "Import another instance's learnings into this brain.",
+          "parameters": {
+            "brain_delta": {
+              "type": "object",
+              "description": "Brain delta object containing learnings from another why-research instance.",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "research_feedback",
+          "description": "Provide feedback on a specific finding to improve future research quality.",
+          "parameters": {
+            "finding_id": {
+              "type": "string",
+              "description": "ID of the finding to give feedback on.",
+              "required": true
+            },
+            "useful": {
+              "type": "boolean",
+              "description": "Whether the finding was useful.",
+              "required": true
+            },
+            "query": {
+              "type": "string",
+              "description": "The original query context for this finding.",
+              "required": true
+            }
+          }
+        }
+      ]
+    }
+  },
+  "discovery": {
+    "repository": "https://github.com/johanity/why-research",
+    "openapi": "openapi.yaml",
+    "agent": ".well-known/agent.json",
+    "ai_plugin": ".well-known/ai-plugin.json",
+    "llms": "llms.txt"
+  }
+}

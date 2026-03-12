@@ -1,0 +1,62 @@
+[project]
+name = "why-research"
+version = "0.1.0"
+description = "Recursive research intelligence that gets smarter over time. Research, investigate, explore, analyze any topic. MCP server, A2A agent, REST API, CLI. Brain learns across sessions."
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+    {name = "Johan David Bonilla", email = "johanity@users.noreply.github.com"},
+]
+keywords = [
+    "ai", "research", "agent", "mcp", "intelligence",
+    "learning", "recursive", "knowledge", "a2a", "autoresearch",
+    "investigate", "explore", "analyze", "understand", "discover",
+    "study", "search", "findings", "brain", "prediction",
+    "surprise", "tool", "why", "deep-dive", "web-search",
+    "ai-agents", "research-intelligence", "recursive-search",
+    "prediction-error", "surprise-detection", "persistent-learning",
+    "mcp-server", "llm", "autonomous-agent", "knowledge-graph",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+dependencies = [
+    "litellm>=1.0",
+    "tavily-python>=0.3",
+    "fastmcp>=2.0",
+    "fastapi>=0.100",
+    "uvicorn>=0.20",
+]
+
+[project.urls]
+Homepage = "https://github.com/johanity/why"
+Repository = "https://github.com/johanity/why"
+
+[project.scripts]
+why = "why.cli:main"
+why-mcp = "why.server:run_server"
+why-api = "why.api:run_api"
+why-register = "why.install_hooks:post_install"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+why = ["py.typed"]

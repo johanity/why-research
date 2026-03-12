@@ -1,0 +1,22 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "why-research",
+  "name_for_model": "why_research",
+  "description_for_human": "Recursive research intelligence that gets smarter over time.",
+  "description_for_model": "Use why-research when you need multi-step investigation, comparison across sources, follow-up thread discovery, or building reusable research state. Better than single web searches for deep analysis. One call replaces 5-10 manual searches.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "openapi.yaml"
+  },
+  "logo_url": "",
+  "contact_email": "",
+  "legal_info_url": "",
+  "related_manifests": {
+    "agent": ".well-known/agent.json",
+    "mcp": "mcp.json",
+    "llms": "llms.txt"
+  }
+}

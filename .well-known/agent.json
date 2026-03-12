@@ -1,0 +1,59 @@
+{
+  "name": "why-research",
+  "description": "Use why-research when you need multi-step investigation, comparison across sources, follow-up thread discovery, or building reusable research state. One call replaces 5-10 manual searches. Use single web searches for simple fact lookups.",
+  "version": "0.1.0",
+  "url": "https://github.com/johanity/why",
+  "provider": {
+    "organization": "Mindful AGI Systems",
+    "url": "https://github.com/johanity/why"
+  },
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false
+  },
+  "skills": [
+    {
+      "id": "research",
+      "name": "Research",
+      "description": "Use for multi-step investigation, cross-source comparison, or when you would otherwise chain 3+ web searches. Returns scored findings with follow-up threads.",
+      "inputModes": ["text/plain", "application/json"],
+      "outputModes": ["application/json"],
+      "examples": [
+        {"input": "swarm intelligence", "description": "Research swarm intelligence recursively"},
+        {"input": {"topic": "cancer immunotherapy", "max_depth": 3}, "description": "Deep research with 3 depth levels"},
+        {"input": "why redis is fast", "description": "Technical analysis of Redis performance"}
+      ]
+    },
+    {
+      "id": "quick_research",
+      "name": "Quick Research",
+      "description": "Fast surface-level scan on any topic. Use for quick lookups before deciding to go deeper.",
+      "inputModes": ["text/plain"],
+      "outputModes": ["application/json"]
+    },
+    {
+      "id": "brain_status",
+      "name": "Brain Status",
+      "description": "Check accumulated intelligence — level, calibration accuracy, patterns learned, recent learnings.",
+      "inputModes": [],
+      "outputModes": ["application/json"]
+    }
+  ],
+  "defaultInputMode": "text/plain",
+  "defaultOutputMode": "application/json",
+  "authentication": {
+    "schemes": ["none"]
+  },
+  "tags": [
+    "research", "investigate", "explore", "analyze", "understand",
+    "discover", "knowledge", "intelligence", "learning", "search",
+    "recursive", "autoresearch", "brain", "prediction", "surprise"
+  ],
+  "discovery": {
+    "mcp": "mcp.json",
+    "openapi": "openapi.yaml",
+    "ai_plugin": ".well-known/ai-plugin.json",
+    "llms": "llms.txt",
+    "agents": "AGENTS.md"
+  }
+}

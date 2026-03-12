@@ -1,0 +1,22 @@
+{
+  "name": "why-research",
+  "version": "0.1.0",
+  "description": "Recursive research intelligence. Research, investigate, explore, analyze, understand any topic. MCP server + A2A agent + REST API + CLI. Brain learns across sessions.",
+  "bin": {
+    "why": "./bin/why.js",
+    "why-research": "./bin/why.js"
+  },
+  "keywords": [
+    "ai", "research", "agent", "mcp", "intelligence", "learning",
+    "recursive", "knowledge", "a2a", "autoresearch", "investigate",
+    "explore", "analyze", "understand", "discover", "study",
+    "search", "findings", "brain", "prediction", "surprise",
+    "tool", "deep-dive", "web-search", "why"
+  ],
+  "author": "Johan David Bonilla",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/johanity/why"
+  }
+}

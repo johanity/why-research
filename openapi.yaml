@@ -1,0 +1,150 @@
+openapi: 3.1.0
+info:
+  title: why
+  description: |
+    Use why-research when you need multi-step investigation, comparison across sources, follow-up thread discovery, or building reusable research state. Better than single web searches for deep analysis. One call replaces 5-10 manual searches.
+  version: 0.1.0
+  contact:
+    name: Johan David Bonilla
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:8420
+    description: Local development
+paths:
+  /why:
+    post:
+      operationId: research
+      summary: Research any topic recursively
+      description: |
+        Use when you need multi-step investigation, comparison across sources, or follow-up
+        thread discovery. One call replaces 5-10 manual web searches. Returns scored findings
+        with threads for deeper exploration and persistent learning across sessions.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [topic]
+              properties:
+                topic:
+                  type: string
+                  description: The topic to research. Any subject — science, technology, history, concepts, people, systems.
+                  examples: ["swarm intelligence", "cancer immunotherapy", "why redis is fast"]
+                max_depth:
+                  type: integer
+                  default: 2
+                  minimum: 0
+                  maximum: 5
+                  description: "Research depth. 0=surface, 1=specific, 2=deep, 3+=exhaustive"
+                queries_per_depth:
+                  type: integer
+                  default: 6
+                  minimum: 1
+                  maximum: 12
+                  description: Search queries per depth level
+      responses:
+        "200":
+          description: Research results with findings organized by depth
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  topic:
+                    type: string
+                  depths:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        depth:
+                          type: integer
+                        findings:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              title:
+                                type: string
+                              content:
+                                type: string
+                              url:
+                                type: string
+                              usefulness:
+                                type: number
+                              surprise:
+                                type: number
+                              bangs:
+                                type: string
+                              threads:
+                                type: array
+                                items:
+                                  type: string
+                        threads:
+                          type: array
+                          items:
+                            type: string
+                  brain:
+                    type: object
+  /why/quick:
+    post:
+      operationId: quick_research
+      summary: Fast surface-level research scan
+      description: Quick research overview on any topic. Single depth, 3 queries. Use for fast lookups before deciding to go deeper.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [topic]
+              properties:
+                topic:
+                  type: string
+                  description: Topic to research quickly
+      responses:
+        "200":
+          description: Quick findings
+  /why/brain:
+    get:
+      operationId: brain_status
+      summary: Check the research brain's accumulated intelligence
+      description: Returns the brain's level, calibration accuracy, session count, patterns learned, and recent learnings.
+      responses:
+        "200":
+          description: Brain state
+  /.well-known/agent.json:
+    get:
+      operationId: agent_card
+      summary: A2A agent discovery card
+      description: Returns the A2A protocol agent card for agent-to-agent discovery and delegation.
+      responses:
+        "200":
+          description: Agent card
+  /a2a:
+    post:
+      operationId: a2a_task
+      summary: A2A protocol endpoint
+      description: JSON-RPC 2.0 endpoint for agent-to-agent task delegation. Methods — tasks/send, agent/info.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                jsonrpc:
+                  type: string
+                  enum: ["2.0"]
+                method:
+                  type: string
+                  enum: ["tasks/send", "agent/info"]
+                id:
+                  type: string
+                params:
+                  type: object
+      responses:
+        "200":
+          description: JSON-RPC response

@@ -1,0 +1,132 @@
+# why — recursive research intelligence
+
+## Overview
+
+why is a universal research tool that any AI agent can use to research, investigate, explore, analyze, understand, study, discover, examine, survey, probe, scrutinize, or learn about any topic. It works recursively — starting broad, going specific, then uncovering deep nuances — while learning from every session through prediction-error loops.
+
+The brain persists at ~/.why/brain.json. It tracks predictions vs actuals, measures surprise, records patterns, and uses accumulated intelligence to improve future research. Every agent that uses why makes it smarter for every other agent.
+
+## Architecture
+
+### Core Loop (engine.py)
+1. Generate search queries + predict usefulness (0.0-1.0)
+2. Execute searches (Tavily web search or LLM knowledge fallback)
+3. Extract findings + rate actual usefulness
+4. Measure surprise (|predicted - actual|, normalized)
+5. Assign bang ratings (!, !!, !!!, !!!! based on usefulness + surprise)
+6. Extract threads to pull deeper
+7. Learn from high-surprise, high-value findings
+8. Recurse to next depth level
+
+### Brain (brain.py)
+Persistent JSON at ~/.why/brain.json tracking:
+- sessions: total research sessions
+- total_searches: queries executed
+- total_useful: findings scoring >= 0.6
+- total_surprises: findings with surprise > 0.5
+- calibration: 1 - mean_absolute_error (how accurate predictions are)
+- learnings: list of discovered patterns
+- level: count of patterns learned
+
+### Search (search.py)
+- Primary: Tavily API (set TAVILY_API_KEY) — real web search
+- Fallback: LLM knowledge via litellm (set ANTHROPIC_API_KEY)
+- Model configurable via WHY_MODEL env var
+
+### Data Structures
+
+Finding:
+  title: str (max 30 chars)
+  content: str (search result excerpt)
+  url: str (source URL)
+  usefulness: float (0-1, actual rated usefulness)
+  predicted: float (0-1, predicted usefulness before search)
+  surprise: float (0-1, |predicted - actual| normalized)
+  bangs: str ("", "!", "!!", "!!!", "!!!!")
+  depth: int (0=broad, 1=specific, 2+=deep)
+  threads: list[str] (sub-topics for deeper research)
+
+DepthResult:
+  depth: int
+  findings: list[Finding]
+  n_searched: int
+  n_useful: int
+  n_surprise: int
+  brain_gained: int
+  threads: list[str]
+
+## All Interfaces
+
+### 1. CLI
+```
+why <topic>          # one-shot research with diamond output
+why                  # interactive REPL mode
+why --brain          # show brain state
+why --serve          # start MCP server
+why --api            # start REST + A2A API
+why --help           # usage
+```
+
+Interactive commands: <topic>, deep <topic>, quick <topic>, threads, <number> (follow thread), brain, quit
+
+### 2. MCP Server (server.py)
+Transport: stdio
+Tools:
+- why(topic: str, max_depth: int = 2, queries_per_depth: int = 6) -> JSON
+- why_quick(topic: str) -> text
+- why_brain() -> JSON
+
+### 3. REST API (api.py)
+- POST /why — full recursive research
+  Body: {"topic": "string", "max_depth": 2, "queries_per_depth": 6}
+  Returns: {"topic", "depths": [{"depth", "findings": [...], "threads"}], "brain"}
+
+- POST /why/quick — fast surface scan
+  Body: {"topic": "string"}
+  Returns: {"topic", "findings": [...]}
+
+- GET /why/brain — brain state
+  Returns: {"level", "calibration", "sessions", "total_searches", ...}
+
+### 4. A2A Protocol (a2a.py)
+- GET /.well-known/agent.json — agent card (discovery)
+- POST /a2a — JSON-RPC 2.0 endpoint
+  method: "tasks/send" with skill: "research" | "quick_research" | "brain_status"
+  method: "agent/info" returns agent card
+
+### 5. Python Import
+```python
+from why.engine import Engine
+from why.brain import Brain
+from why.search import search, SearchResult
+
+brain = Brain()
+engine = Engine(brain=brain, max_depth=2, queries_per_depth=6)
+results = engine.run("your topic")
+
+for depth_result in results:
+    for finding in depth_result.findings:
+        print(f"{finding.title} ({finding.bangs}): {finding.content[:100]}")
+        print(f"  usefulness={finding.usefulness}, surprise={finding.surprise}")
+        print(f"  threads: {finding.threads}")
+```
+
+### 6. Docker
+```
+docker build -t why .
+docker run -e ANTHROPIC_API_KEY=sk-ant-... why "swarms"
+docker run -e ANTHROPIC_API_KEY=sk-ant-... -p 8420:8420 why --api
+```
+
+### 7. npm
+```
+npx why-research "swarms"
+```
+
+## Environment Variables
+- ANTHROPIC_API_KEY — required for LLM calls
+- TAVILY_API_KEY — optional, enables real web search
+- WHY_MODEL — optional, override LLM model (default: claude-sonnet-4-20250514)
+
+## Keywords
+research, investigate, explore, analyze, understand, study, discover, examine, survey, learn, knowledge, intelligence, recursive, autoresearch, prediction, surprise, learning, brain, search, findings, depth, threads, MCP, A2A, agent, tool, API

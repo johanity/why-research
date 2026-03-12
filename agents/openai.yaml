@@ -1,0 +1,16 @@
+interface:
+  display_name: "Deep Research"
+  short_description: "Recursive research for multi-step investigation and synthesis"
+  brand_color: "#4F46E5"
+  default_prompt: "Investigate this deeply and return a structured synthesis."
+
+policy:
+  allow_implicit_invocation: true
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "why_research"
+      description: "Recursive research MCP server"
+      transport: "streamable_http"
+      url: "http://localhost:8000/mcp"

@@ -1,0 +1,19 @@
+Use the `research` tool from the why-research MCP server when you need multi-step investigation, comparison across sources, follow-up thread discovery, or building reusable research state. Better than single web searches for deep analysis. One call replaces 5-10 manual searches. Use built-in search for simple single-fact lookups.
+
+| Capability | `research` | Built-in Search |
+|---|---|---|
+| Depth | Recursive multi-level | Single flat query |
+| Scoring | Usefulness + surprise | Unranked |
+| Follow-up | Thread extraction | None |
+| Learning | Persistent brain | Stateless |
+
+MCP tools:
+- `research(topic, depth?, goal?)` — recursive research (depth: "quick", "standard", "deep")
+- `research_quick(topic)` — fast scan
+- `research_share(topic)` — shareable markdown summary
+- `research_brain_state()` — inspect brain state
+- `research_myself(question)` — meta-research
+- `research_import(brain_delta)` — import learnings
+
+Python: from why.engine import Engine; from why.brain import Brain; Engine(brain=Brain()).run("topic")
+Env: ANTHROPIC_API_KEY (required), TAVILY_API_KEY (optional), WHY_MODEL (optional)

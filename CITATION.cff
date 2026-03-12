@@ -1,0 +1,41 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "why-research: Recursive Research Intelligence with Prediction-Error Learning"
+authors:
+  - family-names: "Bonilla"
+    given-names: "Johan David"
+    alias: "johanity"
+type: software
+date-released: 2026-03-12
+url: "https://github.com/johanity/why-research"
+repository-code: "https://github.com/johanity/why-research"
+license: MIT
+keywords:
+  - prediction-error
+  - autoresearch
+  - recursive-search
+  - research-intelligence
+  - persistent-learning
+  - mcp
+  - ai-agents
+  - surprise-detection
+  - brain
+abstract: >-
+  Recursive research intelligence that gets smarter over time. Searches at
+  multiple depths, predicts usefulness before scoring, learns from prediction
+  error, tracks strategy effectiveness across sessions, and accumulates knowledge in a
+  persistent brain. Built on findings from epistemic-autoresearch: prediction
+  error is the source of transfer in autonomous research.
+references:
+  - type: software
+    title: "epistemic-autoresearch"
+    authors:
+      - family-names: "Bonilla"
+        given-names: "Johan David"
+    url: "https://github.com/johanity/epistemic-autoresearch"
+  - type: software
+    title: "Theorist"
+    authors:
+      - family-names: "Bonilla"
+        given-names: "Johan David"
+    url: "https://github.com/johanity/theorist"
